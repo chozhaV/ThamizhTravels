@@ -19,9 +19,9 @@ export const DriverLogin: React.FC = () => {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="max-w-md w-full"
+        className="w-full max-w-md"
       >
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="bg-white rounded-2xl shadow-xl p-6">
           <div className="text-center mb-8">
             <motion.div
               initial={{ scale: 0 }}

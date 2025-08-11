@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Filter, Users, Car, TrendingUp, AlertCircle } from 'lucide-react';
+import { Search, Filter, Users, Car, TrendingUp, AlertCircle } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
@@ -32,7 +32,7 @@ export const AdminDashboard: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <motion.span
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="space-y-8"
@@ -45,7 +45,7 @@ export const AdminDashboard: React.FC = () => {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
-            <motion.span
+            <motion.div
               key={stat.title}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -62,7 +62,7 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                 </div>
               </Card>
-            </motion.span>
+            </motion.div>
           ))}
         </div>
 
@@ -174,7 +174,7 @@ export const AdminDashboard: React.FC = () => {
             </div>
           </div>
         </Card>
-      </motion.span>
+      </motion.div>
     </div>
   );
 };

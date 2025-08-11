@@ -33,13 +33,13 @@ export const UserDetailsForm: React.FC = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="max-w-lg mx-auto"
-    >
+    <div className="max-w-md mx-auto px-4 py-6">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
       <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="text-2xl font-bold text-secondary-900 mb-6">Complete Your Profile</h2>
+        <h2 className="text-2xl font-bold text-secondary-900 mb-6 text-center">Complete Your Profile</h2>
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <Input
@@ -90,6 +90,7 @@ export const UserDetailsForm: React.FC = () => {
           </Button>
         </form>
       </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };

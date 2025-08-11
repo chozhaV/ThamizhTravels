@@ -66,22 +66,22 @@ export const UserDashboard: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-md mx-auto px-4 py-6">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="space-y-8"
       >
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="text-center space-y-4">
           <div>
-            <h1 className="text-3xl font-bold text-secondary-900">Welcome, {user?.name}!</h1>
-            <p className="text-secondary-600 mt-2">Book your next ride or manage existing bookings</p>
+            <h1 className="text-2xl font-bold text-secondary-900">Welcome, {user?.name}!</h1>
+            <p className="text-secondary-600 mt-1">Book your next ride or manage bookings</p>
           </div>
 
           <Button
             onClick={() => setShowBookingModal(true)}
             size="lg"
-            className="flex items-center space-x-2"
+            className="w-full flex items-center justify-center space-x-2"
           >
             <Car className="w-5 h-5" />
             <span>{t('book.ride')}</span>
@@ -89,38 +89,38 @@ export const UserDashboard: React.FC = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="space-y-4">
           <Card hover className="p-6 cursor-pointer" onClick={() => setShowBookingModal(true)}>
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+            <div className="flex items-center space-x-4 min-h-[44px]">
+              <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Navigation className="w-6 h-6 text-primary-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-secondary-900">{t('book.ride')}</h3>
+                <h3 className="font-semibold text-secondary-900 text-lg">{t('book.ride')}</h3>
                 <p className="text-sm text-secondary-600">Book a new ride</p>
               </div>
             </div>
           </Card>
 
           <Card hover className="p-6 cursor-pointer">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+            <div className="flex items-center space-x-4 min-h-[44px]">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Clock className="w-6 h-6 text-blue-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-secondary-900">Schedule Ride</h3>
+                <h3 className="font-semibold text-secondary-900 text-lg">Schedule Ride</h3>
                 <p className="text-sm text-secondary-600">Book for later</p>
               </div>
             </div>
           </Card>
 
           <Card hover className="p-6 cursor-pointer">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+            <div className="flex items-center space-x-4 min-h-[44px]">
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <CreditCard className="w-6 h-6 text-purple-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-secondary-900">Payment</h3>
+                <h3 className="font-semibold text-secondary-900 text-lg">Payment</h3>
                 <p className="text-sm text-secondary-600">Manage payments</p>
               </div>
             </div>
@@ -129,7 +129,7 @@ export const UserDashboard: React.FC = () => {
 
         {/* My Bookings */}
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-secondary-900 mb-6">{t('my.bookings')}</h3>
+          <h3 className="text-xl font-semibold text-secondary-900 mb-6 text-center">{t('my.bookings')}</h3>
           
           <div className="space-y-4">
             {mockBookings.map((booking) => (
@@ -139,7 +139,7 @@ export const UserDashboard: React.FC = () => {
                 animate={{ opacity: 1, x: 0 }}
                 className="border border-secondary-200 rounded-lg p-4"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-3">
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2">
                       <MapPin className="w-4 h-4 text-green-500" />
@@ -148,10 +148,10 @@ export const UserDashboard: React.FC = () => {
                       <MapPin className="w-4 h-4 text-red-500" />
                       <span className="text-sm font-medium">{booking.to}</span>
                     </div>
-                    <div className="flex items-center space-x-4 text-xs text-secondary-600">
-                      <span>Driver: {booking.driver}</span>
-                      <span>{booking.date}</span>
-                      <span className="font-semibold text-green-600">{booking.fare}</span>
+                    <div className="space-y-1 text-xs text-secondary-600">
+                      <div>Driver: {booking.driver}</div>
+                      <div>{booking.date}</div>
+                      <div className="font-semibold text-green-600 text-lg">{booking.fare}</div>
                     </div>
                     {booking.status === 'completed' && booking.rating > 0 && (
                       <div className="flex items-center space-x-1">
@@ -167,7 +167,7 @@ export const UserDashboard: React.FC = () => {
                     )}
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center justify-between">
                     <span className={`inline-flex px-2 py-1 text-xs rounded-full ${
                       booking.status === 'completed'
                         ? 'bg-green-100 text-green-800'
@@ -178,7 +178,7 @@ export const UserDashboard: React.FC = () => {
                       {booking.status}
                     </span>
                     {booking.status === 'in-progress' && (
-                      <Button size="sm" variant="outline">Track</Button>
+                      <Button size="sm" variant="outline" className="min-h-[36px]">Track</Button>
                     )}
                   </div>
                 </div>
