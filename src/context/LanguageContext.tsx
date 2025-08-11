@@ -33,6 +33,7 @@ const translations: Translations = {
     'email': 'Email',
     'password': 'Password',
     'signin': 'Sign In',
+    'signup': 'Sign Up',
     'welcome.back': 'Welcome Back',
     
     // Dashboard
@@ -89,6 +90,7 @@ const translations: Translations = {
     'email': 'மின்னஞ்சல்',
     'password': 'கடவுச்சொல்',
     'signin': 'உள்நுழைய',
+    'signup': 'பதிவு செய்யவும்',
     'welcome.back': 'மீண்டும் வரவேற்கிறோம்',
     
     // Dashboard

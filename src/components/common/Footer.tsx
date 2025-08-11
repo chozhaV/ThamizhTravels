@@ -20,15 +20,15 @@ export const Footer: React.FC = () => {
               {t('app.tagline')} - Connecting travelers across Tamil Nadu with reliable and comfortable transportation.
             </p>
             <div className="flex space-x-4">
-              <motion.div whileHover={{ scale: 1.1 }} className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center cursor-pointer">
+              <motion.span whileHover={{ scale: 1.1 }} className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center cursor-pointer">
                 <Phone className="w-5 h-5" />
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.1 }} className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center cursor-pointer">
+              </motion.span>
+              <motion.span whileHover={{ scale: 1.1 }} className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center cursor-pointer">
                 <Mail className="w-5 h-5" />
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.1 }} className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center cursor-pointer">
+              </motion.span>
+              <motion.span whileHover={{ scale: 1.1 }} className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center cursor-pointer">
                 <MapPin className="w-5 h-5" />
-              </motion.div>
+              </motion.span>
             </div>
           </div>
 
@@ -64,9 +64,9 @@ export const Footer: React.FC = () => {
         <div className="border-t border-secondary-800 mt-8 pt-8 text-center text-sm text-secondary-400">
           <p className="flex items-center justify-center space-x-1">
             <span>Made with</span>
-            <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1, repeat: Infinity }}>
+            <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1, repeat: Infinity }}>
               <Heart className="w-4 h-4 fill-red-500 text-red-500" />
-            </motion.div>
+            </motion.span>
             <span>for Tamil Nadu</span>
           </p>
           <p className="mt-2">© 2025 {t('app.name')}. All rights reserved.</p>

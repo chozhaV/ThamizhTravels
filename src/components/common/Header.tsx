@@ -23,13 +23,13 @@ export const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-3">
-            <motion.div
+            <motion.span
               whileHover={{ scale: 1.1, rotate: 360 }}
               transition={{ duration: 0.5 }}
               className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center"
             >
               <Car className="w-5 h-5 text-white" />
-            </motion.div>
+            </motion.span>
             <div>
               <h1 className="text-xl font-bold text-secondary-900">{t('app.name')}</h1>
               <p className="text-xs text-secondary-500 hidden sm:block">{t('app.tagline')}</p>

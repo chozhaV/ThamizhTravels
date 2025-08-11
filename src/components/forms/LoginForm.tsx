@@ -1,45 +1,71 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Input } from '../ui/Input';
-import { Button } from '../ui/Button';
-import { useLanguage } from '../../context/LanguageContext';
-import { User } from '../../types';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Input } from "../ui/Input";
+import { Button } from "../ui/Button";
+import { useLanguage } from "../../context/LanguageContext";
+import { User } from "../../types";
 
 interface LoginFormProps {
-  role: 'admin' | 'driver' | 'user';
+  role: "admin" | "driver" | "user";
   onLogin: (user: User) => void;
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({ role, onLogin }) => {
   const { t } = useLanguage();
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
   const [loading, setLoading] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      const user: User = {
-        id: '1',
-        name: role === 'admin' ? 'Admin User' : role === 'driver' ? 'Driver Name' : 'John Doe',
-        email: formData.email,
-        phone: '+91 98765 43210',
-        address: 'Chennai, Tamil Nadu',
-        role: role,
-        isNew: false, // Set to true for demo purposes to show forms
-      };
-      onLogin(user);
-      setLoading(false);
-    }, 1500);
+    const url = !isLogin
+      ? "http://localhost:5000/signup"
+      : "http://localhost:5000/login";
+    const payload = !isLogin
+      ? {
+          name: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+          role,
+        }
+      : { email: formData.email, password: formData.password, role };
+
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && isLogin) {
+        onLogin({
+          ...data.user,
+          phone: "+91 98765 43210",
+          address: "Chennai, Tamil Nadu",
+          isNew: !isLogin,
+        });
+      } else if (res.ok && !isLogin) {
+        alert("✅ Signup successful! Please login.");
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("❌ Something went wrong");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
@@ -49,11 +75,23 @@ export const LoginForm: React.FC<LoginFormProps> = ({ role, onLogin }) => {
     <motion.form
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      onSubmit={handleSubmit}
       className="space-y-6"
+      onSubmit={handleSubmit}
     >
+      {!isLogin && (
+        <Input
+          label={t("fullName") || "Full Name"}
+          type="text"
+          name="fullName"
+          value={formData.fullName}
+          onChange={handleChange}
+          placeholder="Enter your full name"
+          required
+        />
+      )}
+
       <Input
-        label={t('email')}
+        label={t("email")}
         type="email"
         name="email"
         value={formData.email}
@@ -63,7 +101,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ role, onLogin }) => {
       />
 
       <Input
-        label={t('password')}
+        label={t("password")}
         type="password"
         name="password"
         value={formData.password}
@@ -72,14 +110,50 @@ export const LoginForm: React.FC<LoginFormProps> = ({ role, onLogin }) => {
         required
       />
 
-      <Button
-        type="submit"
-        loading={loading}
-        className="w-full"
-        size="lg"
-      >
-        {t('signin')}
-      </Button>
+      {!isLogin && (
+        <Input
+          label={t("confirmPassword") || "Confirm Password"}
+          type="password"
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          placeholder="Confirm your password"
+          required
+        />
+      )}
+
+      <div className="flex gap-4">
+        {isLogin ? (
+          <>
+            <Button type="submit" loading={loading} className="w-1/2" size="lg">
+              {t("signin")}
+            </Button>
+            <Button
+              type="button"
+              className="w-1/2"
+              size="lg"
+              onClick={() => setIsLogin(false)}
+            >
+              {t("signup")}
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              type="button"
+              loading={loading}
+              className="w-1/2"
+              size="lg"
+              onClick={() => setIsLogin(true)}
+            >
+              {t("backToLogin") || "Back"}
+            </Button>
+            <Button type="submit" loading={loading} className="w-1/2" size="lg">
+              {t("register") || "Register"}
+            </Button>
+          </>
+        )}
+      </div>
     </motion.form>
   );
 };

@@ -3,15 +3,14 @@ import { motion } from 'framer-motion';
 import { Car, Shield, User, ArrowRight, Star, Users, MapPin, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
 import { useLanguage } from '../context/LanguageContext';
 
 export const Home: React.FC = () => {
   const { t } = useLanguage();
 
   const loginOptions = [
-    { title: t('admin.login'), path: '/admin/login', icon: Shield, color: 'text-purple-600', bg: 'bg-purple-100' },
-    { title: t('driver.login'), path: '/driver/login', icon: Car, color: 'text-blue-600', bg: 'bg-blue-100' },
+    // { title: t('admin.login'), path: '/admin/login', icon: Shield, color: 'text-purple-600', bg: 'bg-purple-100' },
+    // { title: t('driver.login'), path: '/driver/login', icon: Car, color: 'text-blue-600', bg: 'bg-blue-100' },
     { title: t('user.login'), path: '/user/login', icon: User, color: 'text-green-600', bg: 'bg-green-100' },
   ];
 
@@ -83,7 +82,7 @@ export const Home: React.FC = () => {
           <p className="text-secondary-600">Choose your role to continue</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1">
           {loginOptions.map((option, index) => (
             <motion.div
               key={option.path}
