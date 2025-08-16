@@ -149,7 +149,7 @@ export const Header: React.FC = () => {
                       <div className="flex items-center space-x-3 p-4 bg-primary-50 rounded-lg mb-4">
                         <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
                           <span className="text-primary-600 font-semibold">
-                            {user.name ? user.name.charAt(0).toUpperCase() : user.phone.slice(-2)}
+                            {user.name ? user.name.charAt(0).toUpperCase() : user.phone ? user.phone.slice(-2) : ''}
                           </span>
                         </div>
                         <div>
@@ -170,9 +170,9 @@ export const Header: React.FC = () => {
                         </Link>
                       </div>
                       
-                      <div className="mb-4">
+                      {/* <div className="mb-4">
                         <UserDetailsForm />
-                      </div>
+                      </div> */}
                       
                       {/* Language toggle for authenticated users */}
                       <div className="mb-4">

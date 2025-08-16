@@ -1,13 +1,14 @@
-export interface User {
-  id: string;
+export interface UserDetails {
+  id?: string;
   name?: string;
   email: string;
-  phone: string;
+  phone?: string;
   dateOfBirth?: string;
-  token: string;
+  token?: string;
+  isNew?: boolean;
 }
 
-export interface Driver extends User {
+export interface Driver extends UserDetails {
   licenseNo: string;
   vehicleType: string;
   vehicleNo: string;
@@ -49,7 +50,7 @@ export interface OTPResponse {
   success: boolean;
   message: string;
   token?: string;
-  user?: User;
+  user?: UserDetails;
 }
 
 export type Language = 'en' | 'ta';

@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 import { Input } from "../ui/Input";
 import { Button } from "../ui/Button";
 import { useLanguage } from "../../context/LanguageContext";
-import { User } from "../../types";
+import { UserDetails } from "../../types";
 
 interface LoginFormProps {
   role: "admin" | "driver" | "user";
-  onLogin: (user: User) => void;
+  onLogin: (user: UserDetails) => void;
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({ role, onLogin }) => {

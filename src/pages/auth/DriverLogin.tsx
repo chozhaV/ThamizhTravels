@@ -4,13 +4,13 @@ import { Car } from 'lucide-react';
 import { LoginForm } from '../../components/forms/LoginForm';
 import { useLanguage } from '../../context/LanguageContext';
 import { useAuth } from '../../context/AuthContext';
-import { User } from '../../types';
+import { UserDetails } from '../../types';
 
 export const DriverLogin: React.FC = () => {
   const { t } = useLanguage();
   const { login } = useAuth();
 
-  const handleLogin = (user: User) => {
+  const handleLogin = (user: UserDetails) => {
     login(user);
   };
 

@@ -1,18 +1,18 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { User } from '../types';
+import { UserDetails } from '../types';
 
 interface AuthContextType {
-  user: User | null;
-  login: (user: User) => void;
+  user: UserDetails | null;
+  login: (user: UserDetails) => void;
   logout: () => void;
-  updateUser: (userData: Partial<User>) => void;
+  updateUser: (userData: Partial<UserDetails>) => void;
   isAuthenticated: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(() => {
+  const [user, setUser] = useState<UserDetails | null>(() => {
     const token = localStorage.getItem('authToken');
     const userData = localStorage.getItem('userData');
     if (token && userData) {
@@ -21,8 +21,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return null;
   });
 
-  const login = (userData: User) => {
-    localStorage.setItem('authToken', userData.token);
+  const login = (userData: UserDetails) => {
+    localStorage.setItem('authToken', userData.token || '');
     localStorage.setItem('userData', JSON.stringify(userData));
     setUser(userData);
   };
@@ -33,7 +33,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setUser(null);
   };
 
-  const updateUser = (userData: Partial<User>) => {
+  const updateUser = (userData: Partial<UserDetails>) => {
     if (user) {
       const updatedUser = { ...user, ...userData };
       localStorage.setItem('userData', JSON.stringify(updatedUser));

@@ -44,7 +44,7 @@ export const MobileLogin: React.FC = () => {
       setError(res.data.message);
       if (res.data.token) {
         localStorage.setItem("authToken", res.data.token);
-        login(res.data.userDetails.phone);
+        login(res.data);
       }
     } catch (error: any) {
       setError(error.response?.data?.message || "Error verifying OTP");
