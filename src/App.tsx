@@ -6,28 +6,10 @@ import { Layout } from './components/common/Layout';
 
 // Pages
 import { Home } from './pages/Home';
-import { AdminLogin } from './pages/auth/AdminLogin';
-import { DriverLogin } from './pages/auth/DriverLogin';
-import { UserLogin } from './pages/auth/UserLogin';
+import { MobileLogin } from './pages/auth/MobileLogin';
 
-// Dashboards
-import { AdminDashboard } from './components/dashboard/AdminDashboard';
-import { DriverDashboard } from './components/dashboard/DriverDashboard';
-import { UserDashboard } from './components/dashboard/UserDashboard';
-
-const ProtectedRoute: React.FC<{ children: React.ReactNode; allowedRoles: string[] }> = ({ children, allowedRoles }) => {
-  const { user, isAuthenticated } = useAuth();
-
-  if (!isAuthenticated || !user) {
-    return <Navigate to="/" replace />;
-  }
-
-  if (!allowedRoles.includes(user.role)) {
-    return <Navigate to="/" replace />;
-  }
-
-  return <>{children}</>;
-};
+// Components
+import { RideBooking } from './components/booking/RideBooking';
 
 const AppContent: React.FC = () => {
   const { user, isAuthenticated } = useAuth();
@@ -36,36 +18,23 @@ const AppContent: React.FC = () => {
     <Router>
       <Layout>
         <Routes>
-          <Route path="/" element={!isAuthenticated ? <Home /> : <Navigate to={`/${user?.role}/dashboard`} />} />
+          <Route path="/" element={!isAuthenticated ? <Home /> : <Navigate to="/ride-booking" />} />
           
           {/* Auth Routes */}
-          <Route path="/admin/login" element={!isAuthenticated ? <AdminLogin /> : <Navigate to="/admin/dashboard" />} />
-          <Route path="/driver/login" element={!isAuthenticated ? <DriverLogin /> : <Navigate to="/driver/dashboard" />} />
-          <Route path="/user/login" element={!isAuthenticated ? <UserLogin /> : <Navigate to="/user/dashboard" />} />
+          <Route path="/login" element={!isAuthenticated ? <MobileLogin /> : <Navigate to="/ride-booking" />} />
           
-          {/* Dashboard Routes */}
+          {/* Protected Routes */}
           <Route 
-            path="/admin/dashboard" 
+            path="/ride-booking" 
             element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminDashboard />
-              </ProtectedRoute>
+              isAuthenticated ? <RideBooking /> : <Navigate to="/login" />
             } 
           />
+          
           <Route 
-            path="/driver/dashboard" 
+            path="/my-bookings" 
             element={
-              <ProtectedRoute allowedRoles={['driver']}>
-                <DriverDashboard />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/user/dashboard" 
-            element={
-              <ProtectedRoute allowedRoles={['user']}>
-                <UserDashboard />
-              </ProtectedRoute>
+              isAuthenticated ? <div className="max-w-md mx-auto px-4 py-6 text-center"><h1 className="text-2xl font-bold text-secondary-900">My Bookings</h1><p className="text-secondary-600 mt-2">Coming Soon</p></div> : <Navigate to="/login" />
             } 
           />
 

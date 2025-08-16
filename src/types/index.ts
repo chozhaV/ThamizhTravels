@@ -1,11 +1,10 @@
 export interface User {
   id: string;
-  name: string;
+  name?: string;
   email: string;
   phone: string;
-  address: string;
-  role: 'admin' | 'driver' | 'user';
-  isNew?: boolean;
+  dateOfBirth?: string;
+  token: string;
 }
 
 export interface Driver extends User {
@@ -44,6 +43,13 @@ export interface BookingRequest {
   scheduledTime?: string;
   paymentMethod: 'card' | 'upi' | 'cash';
   notes?: string;
+}
+
+export interface OTPResponse {
+  success: boolean;
+  message: string;
+  token?: string;
+  user?: User;
 }
 
 export type Language = 'en' | 'ta';
