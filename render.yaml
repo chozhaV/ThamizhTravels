@@ -1,10 +1,11 @@
 services:
   - type: web
-    name: thamizh-travels
-    env: node
+    name: thamizh-travels-frontend
+    env: static
     plan: free
     buildCommand: "npm install && npm run build"
-    startCommand: "npm start"
-    envVars:
-      - key: NODE_ENV
-        value: production
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
