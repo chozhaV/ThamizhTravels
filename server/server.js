@@ -16,8 +16,8 @@ const __dirname = path.dirname(__filename);
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "../dist"))); // serve frontend build
-
+const frontendPath = path.join(__dirname, "../dist");
+app.use(express.static(frontendPath));
 // ✅ Enable CORS (allow both local + deployed frontend)
 
 const PORT = process.env.PORT || 5000;
@@ -109,7 +109,7 @@ app.post("/verify-otp", async (req, res) => {
 
 // ✅ Serve React frontend (dist/index.html) for any other route
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../dist/index.html"));
+  res.sendFile(path.join(frontendPath, "index.html"));
 });
 
 // ✅ Start Server
