@@ -14,20 +14,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../dist"))); // serve frontend build
 
 // ✅ Enable CORS (allow both local + deployed frontend)
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173", // local frontend
-      process.env.FRONTEND_URL, // deployed frontend (e.g., Netlify/Vercel URL)
-    ],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
 
 const PORT = process.env.PORT || 5000;
 
@@ -117,11 +108,11 @@ app.post("/verify-otp", async (req, res) => {
 });
 
 // ✅ Serve React frontend (dist/index.html) for any other route
-app.get("/*", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
 
 // ✅ Start Server
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on ${PORT}`);
 });
