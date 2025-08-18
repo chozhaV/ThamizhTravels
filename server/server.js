@@ -4,16 +4,26 @@ import dotenv from "dotenv";
 import cors from "cors";
 import twilio from "twilio";
 import jwt from "jsonwebtoken";
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
 const app = express();
-app.use(express.json());
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// ✅ Enable CORS for your frontend
+// Middleware
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "../dist"))); // serve frontend build
+
+// ✅ Enable CORS (allow both local + deployed frontend)
 app.use(
   cors({
-    origin: "http://localhost:5173", // your React frontend
+    origin: [
+      "http://localhost:5173", // local frontend
+      process.env.FRONTEND_URL, // deployed frontend (e.g., Netlify/Vercel URL)
+    ],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
@@ -106,7 +116,12 @@ app.post("/verify-otp", async (req, res) => {
   }
 });
 
+// ✅ Serve React frontend (dist/index.html) for any other route
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
+});
+
 // ✅ Start Server
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
