@@ -117,7 +117,7 @@ app.post("/verify-otp", async (req, res) => {
 });
 
 // ✅ Serve React frontend (dist/index.html) for any other route
-app.get("*", (req, res) => {
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
 
